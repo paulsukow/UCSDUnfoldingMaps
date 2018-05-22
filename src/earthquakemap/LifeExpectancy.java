@@ -1,11 +1,10 @@
-package module6;
+package earthquakemap;
 
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import parsing.ParseFeed;
 import de.fhpotsdam.unfolding.providers.*;
-import de.fhpotsdam.unfolding.providers.Google.*;
 
 import java.util.List;
 import de.fhpotsdam.unfolding.data.Feature;

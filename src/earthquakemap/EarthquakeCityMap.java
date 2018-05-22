@@ -1,4 +1,4 @@
-package module6;
+package earthquakemap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
