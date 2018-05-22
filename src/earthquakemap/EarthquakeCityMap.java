@@ -127,31 +127,28 @@ public class EarthquakeCityMap extends PApplet {
 		}
 	}
 
-	private void addMarkersToMap() {
-		map.addMarkers(quakeMarkers);
-		map.addMarkers(cityMarkers);
-	}
-
-
 	public void draw() {
 		background(0);
 		map.draw();
 		addKey();
 	}
 
-
-	// TODO: Add the method:
 	private void sortAndPrintMarkersToConsoleForDebugging(int numToPrint) {
 		Marker[] quakes = quakeMarkers.toArray(new Marker[quakeMarkers.size()]);
-        Arrays.sort(quakes);
+		Arrays.sort(quakes);
 
-        if(numToPrint > quakes.length) {
-            numToPrint = quakes.length;
-        }
+		if(numToPrint > quakes.length) {
+			numToPrint = quakes.length;
+		}
 
-        for(int i = 0; i < numToPrint; i++) {
-            println(quakes[i]);
-        }
+		for(int i = 0; i < numToPrint; i++) {
+			println(quakes[i]);
+		}
+	}
+
+	private void addMarkersToMap() {
+		map.addMarkers(quakeMarkers);
+		map.addMarkers(cityMarkers);
 	}
 
 	/** Event handler that gets called automatically when the
