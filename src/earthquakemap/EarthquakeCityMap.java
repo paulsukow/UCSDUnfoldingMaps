@@ -280,16 +280,8 @@ public class EarthquakeCityMap extends PApplet {
 		image(EarthquakeCityMap.cityMarker, city_xbase - 5, city_ybase - 6, 15, 15);
         noTint();
 
-//		fill(150, 30, 30);
-//		int tri_xbase = xbase + 35;
-//		int tri_ybase = ybase + 50;
-//		triangle(tri_xbase, tri_ybase-CityMarker.TRI_SIZE, tri_xbase-CityMarker.TRI_SIZE,
-//				tri_ybase+CityMarker.TRI_SIZE, tri_xbase+CityMarker.TRI_SIZE,
-//				tri_ybase+CityMarker.TRI_SIZE);
-
 		fill(0, 0, 0);
 		textAlign(LEFT, CENTER);
-//		text("City Marker", tri_xbase + 15, tri_ybase);
         text("City Marker", city_xbase + 15, city_ybase);
 
         int land_xbase = xbase + 35;
@@ -301,7 +293,6 @@ public class EarthquakeCityMap extends PApplet {
         fill(0, 0, 0);
         textAlign(LEFT, CENTER);
         text("Land Quake", xbase+50, ybase+70);
-
 
         int ocean_xbase = xbase + 35;
         int ocean_ybase = ybase + 90;
@@ -316,11 +307,6 @@ public class EarthquakeCityMap extends PApplet {
         text("Size ~ Magnitude", xbase+25, ybase+110);
 
 		fill(255, 255, 255);
-//		ellipse(xbase+35,
-//				ybase+70,
-//				10,
-//				10);
-//		rect(xbase+35-5, ybase+90-5, 10, 10);
 
 		fill(color(255, 255, 0));
 		ellipse(xbase+35, ybase+140, 12, 12);
