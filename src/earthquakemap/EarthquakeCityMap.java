@@ -84,7 +84,7 @@ public class EarthquakeCityMap extends PApplet {
 		else {
 			map = new UnfoldingMap(this, 200, 50, 650, 600, new Google.GoogleMapProvider());
 			// IF YOU WANT TO TEST WITH A LOCAL FILE, uncomment the next line
-		    //earthquakesURL = "2.5_week.atom";
+		    earthquakesURL = "2.5_week.atom";
 		}
 		MapUtils.createDefaultEventDispatcher(this, map);
 
