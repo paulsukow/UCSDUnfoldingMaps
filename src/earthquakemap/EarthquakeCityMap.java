@@ -43,18 +43,12 @@ public class EarthquakeCityMap extends PApplet {
 	private String cityFile = "city-data.json";
 	private String countryFile = "countries.geo.json";
 
-	// The map
 	private UnfoldingMap map;
 
-	// Markers for each city
 	private List<Marker> cityMarkers;
-	// Markers for each earthquake
 	private List<Marker> quakeMarkers;
-
-	// A List of country markers
 	private List<Marker> countryMarkers;
 
-	// NEW IN MODULE 5
 	private CommonMarker lastSelected;
 	private CommonMarker lastClicked;
 
