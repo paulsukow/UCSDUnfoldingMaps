@@ -76,9 +76,32 @@ public class EarthquakeCityMap extends PApplet {
         addMarkersToMap();
 	}
 
-	private void addMarkersToMap() {
-		map.addMarkers(quakeMarkers);
-		map.addMarkers(cityMarkers);
+	private void loadMarkerImages() {
+		oceanMarker = loadImage("OceanMarker.png");
+		landMarker = loadImage("LandMarker.png");
+		cityMarker = loadImage("CityMarker.png");
+	}
+
+	private void initializeCanvas() {
+		size(900, 700, OPENGL);
+	}
+
+	private UnfoldingMap createUnfoldingMap() {
+		AbstractMapProvider mapProvider = offline ? new MBTilesMapProvider(mbTilesString) : new Google.GoogleMapProvider();
+		return new UnfoldingMap(this, 200, 50, 650, 600, mapProvider);
+	}
+
+	private void loadCountryMarkers() {
+		List<Feature> countries = GeoJSONReader.loadData(this, countryFile);
+		countryMarkers = MapUtils.createSimpleMarkers(countries);
+	}
+
+	private void loadCityMarkers() {
+		List<Feature> cities = GeoJSONReader.loadData(this, cityFile);
+		cityMarkers = new ArrayList<Marker>();
+		for(Feature city : cities) {
+		  cityMarkers.add(new CityMarker(city));
+		}
 	}
 
 	private void loadQuakeMarkers() {
@@ -94,43 +117,20 @@ public class EarthquakeCityMap extends PApplet {
 		quakeMarkers = new ArrayList<>();
 
 		for(PointFeature feature : earthquakes) {
-		  //check if LandQuake
-		  if(isLand(feature)) {
-			quakeMarkers.add(new LandQuakeMarker(feature));
-		  }
-		  // OceanQuakes
-		  else {
-			quakeMarkers.add(new OceanQuakeMarker(feature));
-		  }
+			//check if LandQuake
+			if(isLand(feature)) {
+				quakeMarkers.add(new LandQuakeMarker(feature));
+			}
+			// OceanQuakes
+			else {
+				quakeMarkers.add(new OceanQuakeMarker(feature));
+			}
 		}
 	}
 
-	private void loadCityMarkers() {
-		List<Feature> cities = GeoJSONReader.loadData(this, cityFile);
-		cityMarkers = new ArrayList<Marker>();
-		for(Feature city : cities) {
-		  cityMarkers.add(new CityMarker(city));
-		}
-	}
-
-	private void loadCountryMarkers() {
-        List<Feature> countries = GeoJSONReader.loadData(this, countryFile);
-        countryMarkers = MapUtils.createSimpleMarkers(countries);
-    }
-
-    private void initializeCanvas() {
-		size(900, 700, OPENGL);
-	}
-
-	private UnfoldingMap createUnfoldingMap() {
-		AbstractMapProvider mapProvider = offline ? new MBTilesMapProvider(mbTilesString) : new Google.GoogleMapProvider();
-		return new UnfoldingMap(this, 200, 50, 650, 600, mapProvider);
-	}
-
-	private void loadMarkerImages() {
-		oceanMarker = loadImage("OceanMarker.png");
-		landMarker = loadImage("LandMarker.png");
-		cityMarker = loadImage("CityMarker.png");
+	private void addMarkersToMap() {
+		map.addMarkers(quakeMarkers);
+		map.addMarkers(cityMarkers);
 	}
 
 
