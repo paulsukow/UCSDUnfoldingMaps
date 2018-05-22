@@ -12,6 +12,7 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractShapeMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
+import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 import de.fhpotsdam.unfolding.providers.Google;
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
 import de.fhpotsdam.unfolding.utils.MapUtils;
@@ -61,15 +62,8 @@ public class EarthquakeCityMap extends PApplet {
 
         // (1) Initializing canvas and map tiles
 		size(900, 700, OPENGL);
-		if (offline) {
-		    map = new UnfoldingMap(this, 200, 50, 650, 600, new MBTilesMapProvider(mbTilesString));
-		    earthquakesURL = "2.5_week.atom";  // The same feed, but saved August 7, 2015
-		}
-		else {
-			map = new UnfoldingMap(this, 200, 50, 650, 600, new Google.GoogleMapProvider());
-			// IF YOU WANT TO TEST WITH A LOCAL FILE, uncomment the next line
-		    earthquakesURL = "2.5_week.atom";
-		}
+		map = createUnfoldingMap();
+
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		// FOR TESTING: Set earthquakesURL to be one of the testing files by uncommenting
@@ -94,6 +88,14 @@ public class EarthquakeCityMap extends PApplet {
 		}
 
 		//     STEP 3: read in earthquake RSS feed
+		if (offline) {
+			earthquakesURL = "2.5_week.atom";  // The same feed, but saved August 7, 2015
+		}
+		else {
+			// IF YOU WANT TO TEST WITH A LOCAL FILE, uncomment the next line
+			earthquakesURL = "2.5_week.atom";
+		}
+
 	    List<PointFeature> earthquakes = ParseFeed.parseEarthquake(this, earthquakesURL);
 	    quakeMarkers = new ArrayList<Marker>();
 
@@ -120,6 +122,11 @@ public class EarthquakeCityMap extends PApplet {
 
 
 	}  // End setup
+
+	private UnfoldingMap createUnfoldingMap() {
+		AbstractMapProvider mapProvider = offline ? new MBTilesMapProvider(mbTilesString) : new Google.GoogleMapProvider();
+		return new UnfoldingMap(this, 200, 50, 650, 600, mapProvider);
+	}
 
 	private void loadMarkerImages() {
 		oceanMarker = loadImage("OceanMarker.png");
