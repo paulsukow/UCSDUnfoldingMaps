@@ -60,39 +60,21 @@ public class EarthquakeCityMap extends PApplet {
 	public void setup() {
 		loadMarkerImages();
 
-        // (1) Initializing canvas and map tiles
 		initializeCanvas();
 		map = createUnfoldingMap();
 
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		// FOR TESTING: Set earthquakesURL to be one of the testing files by uncommenting
-		// one of the lines below.  This will work whether you are online or offline
-		//earthquakesURL = "test1.atom";
-		//earthquakesURL = "test2.atom";
-
-		// Uncomment this line to take the quiz
-		//earthquakesURL = "quiz2.atom";
-
-
-		// (2) Reading in earthquake data and geometric properties
         loadCountryMarkers();
 		loadCityMarkers();
-
-		//     STEP 3: read in earthquake RSS feed
 		loadQuakeMarkers();
 
 	    // could be used for debugging
 	    printQuakes();
         sortAndPrint(20);
 
-	    // (3) Add markers to map
-	    //     NOTE: Country markers are not added to the map.  They are used
-	    //           for their geometric properties
-		addMarkersToMap();
-
-
-	}  // End setup
+        addMarkersToMap();
+	}
 
 	private void addMarkersToMap() {
 		map.addMarkers(quakeMarkers);
