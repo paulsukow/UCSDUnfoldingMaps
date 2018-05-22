@@ -76,9 +76,7 @@ public class EarthquakeCityMap extends PApplet {
 
 
 		// (2) Reading in earthquake data and geometric properties
-	    //     STEP 1: load country features and markers
-		List<Feature> countries = GeoJSONReader.loadData(this, countryFile);
-		countryMarkers = MapUtils.createSimpleMarkers(countries);
+        loadCountryMarkers();
 
 		//     STEP 2: read in city data
 		List<Feature> cities = GeoJSONReader.loadData(this, cityFile);
@@ -123,7 +121,12 @@ public class EarthquakeCityMap extends PApplet {
 
 	}  // End setup
 
-	private void initializeCanvas() {
+    private void loadCountryMarkers() {
+        List<Feature> countries = GeoJSONReader.loadData(this, countryFile);
+        countryMarkers = MapUtils.createSimpleMarkers(countries);
+    }
+
+    private void initializeCanvas() {
 		size(900, 700, OPENGL);
 	}
 
