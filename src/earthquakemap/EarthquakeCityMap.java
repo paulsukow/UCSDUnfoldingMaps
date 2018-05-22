@@ -140,15 +140,15 @@ public class EarthquakeCityMap extends PApplet {
 		}
 	}
 
+	private void addMarkersToMap() {
+		map.addMarkers(quakeMarkers);
+		map.addMarkers(cityMarkers);
+	}
+
 	public void draw() {
 		background(0);
 		map.draw();
 		addKey();
-	}
-
-	private void addMarkersToMap() {
-		map.addMarkers(quakeMarkers);
-		map.addMarkers(cityMarkers);
 	}
 
 	/** Event handler that gets called automatically when the
