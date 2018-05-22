@@ -262,7 +262,6 @@ public class EarthquakeCityMap extends PApplet {
 		}
 	}
 
-	// loop over and unhide all markers
 	private void unhideMarkers() {
 		for(Marker marker : quakeMarkers) {
 			marker.setHidden(false);
@@ -273,9 +272,7 @@ public class EarthquakeCityMap extends PApplet {
 		}
 	}
 
-	// helper method to draw key in GUI
 	private void addKey() {
-		// Remember you can use Processing's graphics methods here
 		fill(255, 250, 240);
 
 		int xbase = 25;
@@ -359,36 +356,18 @@ public class EarthquakeCityMap extends PApplet {
 		strokeWeight(2);
 		line(centerx-8, centery-8, centerx+8, centery+8);
 		line(centerx-8, centery+8, centerx+8, centery-8);
-
-
 	}
 
-
-
-	// Checks whether this quake occurred on land.  If it did, it sets the
-	// "country" property of its PointFeature to the country where it occurred
-	// and returns true.  Notice that the helper method isInCountry will
-	// set this "country" property already.  Otherwise it returns false.
 	private boolean isLand(PointFeature earthquake) {
-
-		// IMPLEMENT THIS: loop over all countries to check if location is in any of them
-		// If it is, add 1 to the entry in countryQuakes corresponding to this country.
 		for (Marker country : countryMarkers) {
 			if (isInCountry(earthquake, country)) {
 				return true;
 			}
 		}
 
-		// not inside any country
 		return false;
 	}
 
-	// prints countries with number of earthquakes
-	// You will want to loop through the country markers or country features
-	// (either will work) and then for each country, loop through
-	// the quakes to count how many occurred in that country.
-	// Recall that the country markers have a "name" property,
-	// And LandQuakeMarkers have a "country" property set.
 	private void printQuakesToConsoleForDebugging() {
 		int totalWaterQuakes = quakeMarkers.size();
 		for (Marker country : countryMarkers) {
@@ -411,12 +390,6 @@ public class EarthquakeCityMap extends PApplet {
 		System.out.println("OCEAN QUAKES: " + totalWaterQuakes);
 	}
 
-
-
-	// helper method to test whether a given earthquake is in a given country
-	// This will also add the country property to the properties of the earthquake feature if
-	// it's in one of the countries.
-	// You should not have to modify this code
 	private boolean isInCountry(PointFeature earthquake, Marker country) {
 		// getting location of feature
 		Location checkLoc = earthquake.getLocation();
@@ -446,5 +419,4 @@ public class EarthquakeCityMap extends PApplet {
 		}
 		return false;
 	}
-
 }
