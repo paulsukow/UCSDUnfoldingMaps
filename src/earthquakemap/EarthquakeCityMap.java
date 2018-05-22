@@ -69,9 +69,8 @@ public class EarthquakeCityMap extends PApplet {
 		loadCityMarkers();
 		loadQuakeMarkers();
 
-	    // could be used for debugging
-	    printQuakes();
-        sortAndPrint(20);
+	    printQuakesToConsoleForDebugging();
+        sortAndPrintMarkersToConsoleForDebugging(20);
 
         addMarkersToMap();
 	}
@@ -142,7 +141,7 @@ public class EarthquakeCityMap extends PApplet {
 
 
 	// TODO: Add the method:
-	private void sortAndPrint(int numToPrint) {
+	private void sortAndPrintMarkersToConsoleForDebugging(int numToPrint) {
 		Marker[] quakes = quakeMarkers.toArray(new Marker[quakeMarkers.size()]);
         Arrays.sort(quakes);
 
@@ -393,7 +392,7 @@ public class EarthquakeCityMap extends PApplet {
 	// the quakes to count how many occurred in that country.
 	// Recall that the country markers have a "name" property,
 	// And LandQuakeMarkers have a "country" property set.
-	private void printQuakes() {
+	private void printQuakesToConsoleForDebugging() {
 		int totalWaterQuakes = quakeMarkers.size();
 		for (Marker country : countryMarkers) {
 			String countryName = country.getStringProperty("name");
