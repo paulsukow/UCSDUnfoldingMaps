@@ -127,12 +127,6 @@ public class EarthquakeCityMap extends PApplet {
 		}
 	}
 
-	public void draw() {
-		background(0);
-		map.draw();
-		addKey();
-	}
-
 	private void sortAndPrintMarkersToConsoleForDebugging(int numToPrint) {
 		Marker[] quakes = quakeMarkers.toArray(new Marker[quakeMarkers.size()]);
 		Arrays.sort(quakes);
@@ -144,6 +138,12 @@ public class EarthquakeCityMap extends PApplet {
 		for(int i = 0; i < numToPrint; i++) {
 			println(quakes[i]);
 		}
+	}
+
+	public void draw() {
+		background(0);
+		map.draw();
+		addKey();
 	}
 
 	private void addMarkersToMap() {
