@@ -77,13 +77,7 @@ public class EarthquakeCityMap extends PApplet {
 
 		// (2) Reading in earthquake data and geometric properties
         loadCountryMarkers();
-
-		//     STEP 2: read in city data
-		List<Feature> cities = GeoJSONReader.loadData(this, cityFile);
-		cityMarkers = new ArrayList<Marker>();
-		for(Feature city : cities) {
-		  cityMarkers.add(new CityMarker(city));
-		}
+		loadCityMarkers();
 
 		//     STEP 3: read in earthquake RSS feed
 		if (offline) {
@@ -121,7 +115,15 @@ public class EarthquakeCityMap extends PApplet {
 
 	}  // End setup
 
-    private void loadCountryMarkers() {
+	private void loadCityMarkers() {
+		List<Feature> cities = GeoJSONReader.loadData(this, cityFile);
+		cityMarkers = new ArrayList<Marker>();
+		for(Feature city : cities) {
+		  cityMarkers.add(new CityMarker(city));
+		}
+	}
+
+	private void loadCountryMarkers() {
         List<Feature> countries = GeoJSONReader.loadData(this, countryFile);
         countryMarkers = MapUtils.createSimpleMarkers(countries);
     }
