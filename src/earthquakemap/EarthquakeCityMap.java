@@ -89,11 +89,15 @@ public class EarthquakeCityMap extends PApplet {
 	    // (3) Add markers to map
 	    //     NOTE: Country markers are not added to the map.  They are used
 	    //           for their geometric properties
-	    map.addMarkers(quakeMarkers);
-	    map.addMarkers(cityMarkers);
+		addMarkersToMap();
 
 
 	}  // End setup
+
+	private void addMarkersToMap() {
+		map.addMarkers(quakeMarkers);
+		map.addMarkers(cityMarkers);
+	}
 
 	private void loadQuakeMarkers() {
 		if (offline) {
