@@ -61,7 +61,7 @@ public class EarthquakeCityMap extends PApplet {
 		loadMarkerImages();
 
         // (1) Initializing canvas and map tiles
-		size(900, 700, OPENGL);
+		initializeCanvas();
 		map = createUnfoldingMap();
 
 		MapUtils.createDefaultEventDispatcher(this, map);
@@ -122,6 +122,10 @@ public class EarthquakeCityMap extends PApplet {
 
 
 	}  // End setup
+
+	private void initializeCanvas() {
+		size(900, 700, OPENGL);
+	}
 
 	private UnfoldingMap createUnfoldingMap() {
 		AbstractMapProvider mapProvider = offline ? new MBTilesMapProvider(mbTilesString) : new Google.GoogleMapProvider();
