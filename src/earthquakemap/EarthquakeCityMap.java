@@ -57,9 +57,7 @@ public class EarthquakeCityMap extends PApplet {
     static PImage cityMarker;
 
 	public void setup() {
-        oceanMarker = loadImage("OceanMarker.png");
-        landMarker = loadImage("LandMarker.png");
-        cityMarker = loadImage("CityMarker.png");
+		loadMarkerImages();
 
         // (1) Initializing canvas and map tiles
 		size(900, 700, OPENGL);
@@ -122,6 +120,12 @@ public class EarthquakeCityMap extends PApplet {
 
 
 	}  // End setup
+
+	private void loadMarkerImages() {
+		oceanMarker = loadImage("OceanMarker.png");
+		landMarker = loadImage("LandMarker.png");
+		cityMarker = loadImage("CityMarker.png");
+	}
 
 
 	public void draw() {
