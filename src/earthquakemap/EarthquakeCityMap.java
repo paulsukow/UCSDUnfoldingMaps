@@ -80,27 +80,7 @@ public class EarthquakeCityMap extends PApplet {
 		loadCityMarkers();
 
 		//     STEP 3: read in earthquake RSS feed
-		if (offline) {
-			earthquakesURL = "2.5_week.atom";  // The same feed, but saved August 7, 2015
-		}
-		else {
-			// IF YOU WANT TO TEST WITH A LOCAL FILE, uncomment the next line
-			earthquakesURL = "2.5_week.atom";
-		}
-
-	    List<PointFeature> earthquakes = ParseFeed.parseEarthquake(this, earthquakesURL);
-	    quakeMarkers = new ArrayList<Marker>();
-
-	    for(PointFeature feature : earthquakes) {
-		  //check if LandQuake
-		  if(isLand(feature)) {
-		    quakeMarkers.add(new LandQuakeMarker(feature));
-		  }
-		  // OceanQuakes
-		  else {
-		    quakeMarkers.add(new OceanQuakeMarker(feature));
-		  }
-	    }
+		loadQuakeMarkers();
 
 	    // could be used for debugging
 	    printQuakes();
@@ -114,6 +94,30 @@ public class EarthquakeCityMap extends PApplet {
 
 
 	}  // End setup
+
+	private void loadQuakeMarkers() {
+		if (offline) {
+			earthquakesURL = "2.5_week.atom";  // The same feed, but saved August 7, 2015
+		}
+		else {
+			// IF YOU WANT TO TEST WITH A LOCAL FILE, uncomment the next line
+			earthquakesURL = "2.5_week.atom";
+		}
+
+		List<PointFeature> earthquakes = ParseFeed.parseEarthquake(this, earthquakesURL);
+		quakeMarkers = new ArrayList<>();
+
+		for(PointFeature feature : earthquakes) {
+		  //check if LandQuake
+		  if(isLand(feature)) {
+			quakeMarkers.add(new LandQuakeMarker(feature));
+		  }
+		  // OceanQuakes
+		  else {
+			quakeMarkers.add(new OceanQuakeMarker(feature));
+		  }
+		}
+	}
 
 	private void loadCityMarkers() {
 		List<Feature> cities = GeoJSONReader.loadData(this, cityFile);
