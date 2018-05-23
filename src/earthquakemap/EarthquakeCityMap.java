@@ -24,6 +24,8 @@ import static java.util.stream.Collectors.toList;
 
 /** EarthquakeCityMap
  * An application with an interactive map displaying earthquake data.
+ * This is app was created to practice general OOP in Java and is the course project from the
+ * Coursera UCSD Object Oriented Programing in Java Course: https://www.coursera.org/learn/object-oriented-java
  * Author: UC San Diego Intermediate Software Development MOOC team
  * @author Paul Sukow
  * Date: July 17, 2015
@@ -346,30 +348,20 @@ public class EarthquakeCityMap extends PApplet {
 	}
 
 	private boolean isInCountry(PointFeature earthquake, Marker country) {
-		// getting location of feature
-		Location checkLoc = earthquake.getLocation();
+		Location earthquakeLocation = earthquake.getLocation();
 
-		// some countries represented it as MultiMarker
-		// looping over SimplePolygonMarkers which make them up to use isInsideByLoc
 		if(country.getClass() == MultiMarker.class) {
 
-			// looping over markers making up MultiMarker
 			for(Marker marker : ((MultiMarker)country).getMarkers()) {
-
-				// checking if inside
-				if(((AbstractShapeMarker)marker).isInsideByLocation(checkLoc)) {
+				if(((AbstractShapeMarker)marker).isInsideByLocation(earthquakeLocation)) {
 					earthquake.addProperty("country", country.getProperty("name"));
-
-					// return if is inside one
 					return true;
 				}
 			}
 		}
 
-		// check if inside country represented by SimplePolygonMarker
-		else if(((AbstractShapeMarker)country).isInsideByLocation(checkLoc)) {
+		else if(((AbstractShapeMarker)country).isInsideByLocation(earthquakeLocation)) {
 			earthquake.addProperty("country", country.getProperty("name"));
-
 			return true;
 		}
 		return false;
