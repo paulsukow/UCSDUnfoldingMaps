@@ -32,17 +32,15 @@ public class EarthquakeCityMap extends PApplet {
 	private static final long serialVersionUID = 1L;
 
 	// IF YOU ARE WORKING OFFILINE, change the value of this variable to true
-	private static final boolean offline = false;
+	private static final boolean OFFLINE = false;
+	private static final String CITY_DATA = "city-data.json";
+	private static final String COUNTRIES_DATA = "countries.geo.json";
 
 	/** This is where to find the local tiles, for working without an Internet connection */
 	public static String mbTilesString = "blankLight-1-3.mbtiles";
 
 	//feed with magnitude 2.5+ Earthquakes
 	private String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.atom";
-
-	// The files containing city names and info and country names and info
-	private String cityFile = "city-data.json";
-	private String countryFile = "countries.geo.json";
 
 	private UnfoldingMap map;
 
@@ -86,17 +84,17 @@ public class EarthquakeCityMap extends PApplet {
 	}
 
 	private UnfoldingMap createUnfoldingMap() {
-		AbstractMapProvider mapProvider = offline ? new MBTilesMapProvider(mbTilesString) : new Google.GoogleMapProvider();
+		AbstractMapProvider mapProvider = OFFLINE ? new MBTilesMapProvider(mbTilesString) : new Google.GoogleMapProvider();
 		return new UnfoldingMap(this, 200, 50, 650, 600, mapProvider);
 	}
 
 	private void loadCountryMarkers() {
-		List<Feature> countries = GeoJSONReader.loadData(this, countryFile);
+		List<Feature> countries = GeoJSONReader.loadData(this, COUNTRIES_DATA);
 		countryMarkers = MapUtils.createSimpleMarkers(countries);
 	}
 
 	private void loadCityMarkers() {
-		List<Feature> cities = GeoJSONReader.loadData(this, cityFile);
+		List<Feature> cities = GeoJSONReader.loadData(this, CITY_DATA);
 		cityMarkers = new ArrayList<Marker>();
 		for(Feature city : cities) {
 		  cityMarkers.add(new CityMarker(city));
@@ -104,7 +102,7 @@ public class EarthquakeCityMap extends PApplet {
 	}
 
 	private void loadQuakeMarkers() {
-		if (offline) {
+		if (OFFLINE) {
 			earthquakesURL = "2.5_week.atom";  // The same feed, but saved August 7, 2015
 		}
 		else {
