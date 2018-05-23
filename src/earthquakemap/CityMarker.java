@@ -7,8 +7,8 @@ import processing.core.PConstants;
 import processing.core.PGraphics;
 
 public class CityMarker extends CommonMarker {
-	
-	public static int TRI_SIZE = 5;  // The size of the triangle marker
+
+	public static final int TRI_SIZE = 5;
 	
 	public CityMarker(Location location) {
 		super(location);
