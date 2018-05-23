@@ -247,13 +247,8 @@ public class EarthquakeCityMap extends PApplet {
 	}
 
 	private void unhideMarkers() {
-		for(Marker marker : quakeMarkers) {
-			marker.setHidden(false);
-		}
-
-		for(Marker marker : cityMarkers) {
-			marker.setHidden(false);
-		}
+		quakeMarkers.forEach(marker -> marker.setHidden(false));
+		cityMarkers.forEach(marker -> marker.setHidden(false));
 	}
 
 	private void addKey() {
