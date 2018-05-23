@@ -1,10 +1,5 @@
 package earthquakemap;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
@@ -21,6 +16,10 @@ import parsing.ParseFeed;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static java.util.stream.Collectors.toList;
 
 /** EarthquakeCityMap
@@ -31,16 +30,14 @@ import static java.util.stream.Collectors.toList;
  * */
 public class EarthquakeCityMap extends PApplet {
 
-	// You can ignore this.  It's to get rid of eclipse warnings
 	private static final long serialVersionUID = 1L;
 
 	// IF YOU ARE WORKING OFFILINE, change the value of this variable to true
 	private static final boolean OFFLINE = false;
+
 	private static final String CITY_DATA = "city-data.json";
 	private static final String COUNTRIES_DATA = "countries.geo.json";
-
-	/** This is where to find the local tiles, for working without an Internet connection */
-	public static String mbTilesString = "blankLight-1-3.mbtiles";
+	private static final String OFFLINE_MAP_TILES = "blankLight-1-3.mbtiles";
 
 	//feed with magnitude 2.5+ Earthquakes
 	private String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.atom";
@@ -87,7 +84,7 @@ public class EarthquakeCityMap extends PApplet {
 	}
 
 	private UnfoldingMap createUnfoldingMap() {
-		AbstractMapProvider mapProvider = OFFLINE ? new MBTilesMapProvider(mbTilesString) : new Google.GoogleMapProvider();
+		AbstractMapProvider mapProvider = OFFLINE ? new MBTilesMapProvider(OFFLINE_MAP_TILES) : new Google.GoogleMapProvider();
 		return new UnfoldingMap(this, 200, 50, 650, 600, mapProvider);
 	}
 
@@ -116,11 +113,9 @@ public class EarthquakeCityMap extends PApplet {
 		quakeMarkers = new ArrayList<>();
 
 		for(PointFeature feature : earthquakes) {
-			//check if LandQuake
 			if(isLand(feature)) {
 				quakeMarkers.add(new LandQuakeMarker(feature));
 			}
-			// OceanQuakes
 			else {
 				quakeMarkers.add(new OceanQuakeMarker(feature));
 			}
