@@ -32,15 +32,13 @@ public class EarthquakeCityMap extends PApplet {
 
 	private static final long serialVersionUID = 1L;
 
-	// IF YOU ARE WORKING OFFILINE, change the value of this variable to true
 	private static final boolean OFFLINE = false;
 
 	private static final String CITY_DATA = "city-data.json";
 	private static final String COUNTRIES_DATA = "countries.geo.json";
 	private static final String OFFLINE_MAP_TILES = "blankLight-1-3.mbtiles";
 
-	//feed with magnitude 2.5+ Earthquakes
-	private String earthquakesURL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.atom";
+	private String earthquakesFeedURL = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.atom";
 
 	private UnfoldingMap map;
 
@@ -102,14 +100,14 @@ public class EarthquakeCityMap extends PApplet {
 
 	private void loadQuakeMarkers() {
 		if (OFFLINE) {
-			earthquakesURL = "2.5_week.atom";  // The same feed, but saved August 7, 2015
+			earthquakesFeedURL = "2.5_week.atom";  // The same feed, but saved August 7, 2015
 		}
 		else {
 			// IF YOU WANT TO TEST WITH A LOCAL FILE, uncomment the next line
-			earthquakesURL = "2.5_week.atom";
+			earthquakesFeedURL = "2.5_week.atom";
 		}
 
-		List<PointFeature> earthquakes = ParseFeed.parseEarthquake(this, earthquakesURL);
+		List<PointFeature> earthquakes = ParseFeed.parseEarthquake(this, earthquakesFeedURL);
 		quakeMarkers = new ArrayList<>();
 
 		for(PointFeature feature : earthquakes) {
@@ -146,9 +144,6 @@ public class EarthquakeCityMap extends PApplet {
 		addKey();
 	}
 
-	/** Event handler that gets called automatically when the
-	 * mouse moves.
-	 */
 	@Override
 	public void mouseMoved() {
 		if (lastSelected != null) {
@@ -175,11 +170,6 @@ public class EarthquakeCityMap extends PApplet {
 		}
 	}
 
-	/** The event handler for mouse clicks
-	 * It will display an earthquake and its threat circle of cities
-	 * Or if a city is clicked, it will display all the earthquakes
-	 * where the city is in the threat circle
-	 */
 	@Override
 	public void mouseClicked() {
 		if (lastClicked != null) {
