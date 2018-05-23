@@ -3,6 +3,7 @@ package earthquakemap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
@@ -19,6 +20,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import parsing.ParseFeed;
 import processing.core.PApplet;
 import processing.core.PImage;
+
+import static java.util.stream.Collectors.toList;
 
 /** EarthquakeCityMap
  * An application with an interactive map displaying earthquake data.
@@ -95,10 +98,9 @@ public class EarthquakeCityMap extends PApplet {
 
 	private void loadCityMarkers() {
 		List<Feature> cities = GeoJSONReader.loadData(this, CITY_DATA);
-		cityMarkers = new ArrayList<Marker>();
-		for(Feature city : cities) {
-		  cityMarkers.add(new CityMarker(city));
-		}
+		cityMarkers = cities.stream()
+				.map(CityMarker :: new)
+				.collect(toList());
 	}
 
 	private void loadQuakeMarkers() {
